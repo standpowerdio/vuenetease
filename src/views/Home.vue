@@ -1,18 +1,45 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <snav msg="推荐歌单"/>
+    <songlist/>
+    <snav msg="最新音乐"/>
+    <div>
+      <cell v-for="(item,i) in $store.state.newsong" :title="item.song.name" :artists="item.song.artists" :album="item.song.album.name" :key="i" :sid="item.id"/>
+    </div>
+    <homefooter/>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import snav from '@/components/snav/snav.vue'
+import songlist from '@/components/songlist/songlist.vue'
+import cell from '@/components/cell/cell.vue'
+import homefooter from '@/components/homefooter/homefooter.vue'
 
 export default {
   name: 'Home',
+  data(){
+    return {
+      newsongs:[]
+    }
+  },
   components: {
-    HelloWorld
+    snav,
+    songlist,
+    cell,
+    homefooter
+  },
+  mounted() {
+    this.$store.dispatch('getnewsong')
   }
 }
 </script>
+
+
+
+<style scoped>
+.home{
+  flex: 1;
+  overflow: auto;
+}
+</style>

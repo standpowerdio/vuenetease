@@ -5,8 +5,13 @@ import store from './store'
 
 Vue.config.productionTip = false
 
-new Vue({
+let vm = new Vue({
   router,
   store,
   render: h => h(App)
 }).$mount('#app')
+
+
+import './router/axios'
+
+export default vm
